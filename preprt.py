@@ -147,9 +147,49 @@
 #         time.sleep(1)
 
 
+#-----------------------------------------
 #--Build with Python Desktop Application--
 #-----------------------------------------
-from tkinter import Tk, Label, Button
+# from tkinter import Tk, Label, Button, Entry, END
+# import os
+
+# def clear_screen():
+#     os.system("cls" if os.name == "nt" else "clear")
+
+
+# def say_hello():
+#     user_name = entery_label.get()
+#     greeting_label.config(text=f"Hello,{user_name}! to MedDev")
+#     entery_label.delete(0, END)
+
+
+# clear_screen()
+
+# window = Tk()
+# window.title("MedDev Interactive App")
+# window.geometry("500x350")
+
+# title_label = Label(window, text="Enter your name below:", font=("Arial", 14))
+# title_label.pack(pady=18)
+
+# entery_label = Entry(window, width="40")
+# entery_label.pack(pady=10)
+
+# submit_button = Button(window, text="Say Hello", font=("Arial", 12), width="10", command=say_hello)
+# submit_button.pack(pady=20)
+
+# greeting_label = Label(window, text="Waiting for your name...", font=("Arial", 16))
+# greeting_label.pack(pady=20)
+
+
+
+# window.mainloop()
+
+#----------------------
+#--Python GUI project--
+#----------------------
+
+import tkinter
 import os
 
 def clear_screen():
@@ -157,21 +197,28 @@ def clear_screen():
 
 clear_screen()
 
-window = Tk()
+window = tkinter.Tk()
+window.title("Data Entry From")
 window.geometry("500x350")
-window.title("My Busnis card")
 
-welcome_label = Label(window, text="MedDev", font=("Arial", 18))
-welcome_label.pack(pady=12)
+frame = tkinter.Frame(window)
+frame.pack()
 
-pn_label = Label(window, text="MedDev Python Desktop GUI", font=("Arial", 16))
-pn_label.pack(pady=20)
+#-Saving User Info
+user_info_frame = tkinter.LabelFrame(frame, text="User Information")
+user_info_frame.grid(row= 0, column= 0, padx=20, pady=20)
 
-start_label = Button(window, text="Contact US", font=("Arial", 12))
-start_label.pack(pady=30)
+first_name_label = tkinter.Label(user_info_frame, text="First Name")
+first_name_label.grid(row=0, column=0)
 
+last_name_label = tkinter.Label(user_info_frame, text="Last Name")
+last_name_label.grid(row=0, column=1)
+
+first_name_entry = tkinter.Entry(user_info_frame)
+last_name_entry = tkinter.Entry(user_info_frame)
+first_name_entry.grid(row=1, column=0)
+last_name_entry.grid(row=1, column=1)
 
 
 
 window.mainloop()
-
