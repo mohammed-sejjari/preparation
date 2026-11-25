@@ -185,11 +185,10 @@
 
 # window.mainloop()
 
-#----------------------
-#--Python GUI project--
-#----------------------
-
-import tkinter
+#---------------------------
+#--Working with JSON Data --
+#---------------------------
+import json
 import os
 
 def clear_screen():
@@ -197,28 +196,23 @@ def clear_screen():
 
 clear_screen()
 
-window = tkinter.Tk()
-window.title("Data Entry From")
-window.geometry("500x350")
+new_cards = {
+    "Apple": "التفاحة",
+    "Book":  "كتاب",
+    "Code": "كود برمجي"
+}
 
-frame = tkinter.Frame(window)
-frame.pack()
+with open("cards.json", "w", encoding="utf-8") as file:
+    json.dump(new_cards, file, indent= 4, ensure_ascii= False)
 
-#-Saving User Info
-user_info_frame = tkinter.LabelFrame(frame, text="User Information")
-user_info_frame.grid(row= 0, column= 0, padx=20, pady=20)
+with open("cards.json", "r", encoding="utf-8") as file:
+    saved_data = json.load(file)
 
-first_name_label = tkinter.Label(user_info_frame, text="First Name")
-first_name_label.grid(row=0, column=0)
+extra_card = {
+    "Developer": "مبرمج"
+}
 
-last_name_label = tkinter.Label(user_info_frame, text="Last Name")
-last_name_label.grid(row=0, column=1)
+saved_data.update(extra_card)
 
-first_name_entry = tkinter.Entry(user_info_frame)
-last_name_entry = tkinter.Entry(user_info_frame)
-first_name_entry.grid(row=1, column=0)
-last_name_entry.grid(row=1, column=1)
-
-
-
-window.mainloop()
+with open("cards.json", "w", encoding="utf-8") as file:
+    json.dump(saved_data, file, indent= 4, ensure_ascii= False)
