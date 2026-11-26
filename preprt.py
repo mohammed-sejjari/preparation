@@ -216,3 +216,82 @@ saved_data.update(extra_card)
 
 with open("cards.json", "w", encoding="utf-8") as file:
     json.dump(saved_data, file, indent= 4, ensure_ascii= False)
+
+
+
+
+
+#----------------------------------------
+#--python error handling best practices--
+#----------------------------------------
+import os
+import json
+from tkinter import Tk, Label, Entry, END, Button, messagebox
+
+def clear_screen():
+    os.system("cls" if os.name == "nt" else "clear")
+
+
+new_card = {
+    "Apple": "تفاحة",
+    "Book": "كتاب",
+    "Code": "كود برمجي"
+}
+
+with open("card.json", "w", encoding="utf-8") as file:
+    json.dump(new_card, file, indent=4, ensure_ascii=False)
+
+with open("card.json", "r", encoding="utf-8") as file:
+    saved_data = json.load(file)
+
+extra_card = {
+    "Developer": "مبرمج"
+}
+
+saved_data.update(extra_card)
+
+with open("card.json", "w", encoding="utf-8") as file:
+    json.dump(saved_data, file, indent=4, ensure_ascii=False)
+
+def search_word():
+    word = word_entry.get().strip().title()
+
+    if len(word) == 0 :
+        messagebox.showwarning(title="Warning", message="Please enter a word first.!!")
+        return
+
+    try:
+        with open("card.json", "r", encoding="utf-8") as file:
+            data = json.load(file)
+
+    except FileNotFoundError:
+        messagebox.showwarning(title="File Not Found", message="No saved words yet.!! Please add words first.")
+    
+    else:
+        if word in data:
+            meaning = data[word]
+            messagebox.showinfo(title="Word Found", message=f"Meaning of {word}: {meaning}")
+            
+        else:
+            messagebox.showwarning(title="Not Found", message=f"'{word}' is not in the dictionary yet.!!")
+            
+        word_entry.delete(0, END)
+
+clear_screen()
+
+window = Tk()
+window.title("MedDev Safe App")
+window.geometry("420x300")
+
+prompt_label =Label(window, text="Search for word in the dictionary:", font=("Arail", 16))
+prompt_label.pack(pady=15)
+
+word_entry = Entry(window, width=30, font=("Arial", 14))
+word_entry.pack(pady=20)
+
+search_button = Button(window, text="Search Now", font=("Arial", 14), command=search_word)
+search_button.pack(pady=30)
+
+
+
+window.mainloop()
